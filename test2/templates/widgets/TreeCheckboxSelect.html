@@ -1,0 +1,31 @@
+{% load mptt_tags %}
+
+
+
+<div class="form-group " >
+
+                    <input type="text" class="form-control treesearch" placeholder="Suchbegriff">
+                    <ul data-name="foo" class="bonsaicontrol form-control" >
+    {% recursetree widget.nestedtree %}
+
+        <li class="has-children " data-value="0">
+            <input type="checkbox" class="TreeCheckboxSelect" name="{{widget.name}}"
+                   {% for value in widget.nestedtree %}
+
+                   {% if value|slugify == node.id|slugify %}
+                   checked = ""
+                   {% endif %}
+                   {% endfor %}
+                   id="{{ node.pk }}" value="{{ node.pk }}" />{{node}}
+            {% if not node.is_leaf_node %}
+                <ul style="height: auto;" >
+
+                    {{ children }}
+                </ul>
+            {% endif %}
+        </li>
+    {% endrecursetree %}
+</ul>
+
+                  </div>
+
